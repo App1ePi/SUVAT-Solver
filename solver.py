@@ -1,13 +1,16 @@
 import math
 
+modes = {1: "Simple Motion", 2: "Projected From Floor", 3: "Projected Upwards From Floor", 4: "Projected From Ledge",
+         5: "Dropped From Ledge", 6: "Projected Upwards From Point"}
+
 
 def simple_motion():
+    print("Welcome to Simple Motion")
     s = input("S: ").lower()
     u = input("U: ").lower()
     v = input("V: ").lower()
     a = input("A: ").lower()
     t = input("T: ").lower()
-    print(s, u, v, a, t)
 
     if s == "none" and u == "none":
         s = (float(v) * float(t)) - (0.5 * float(a) * math.pow(float(t), 2))
@@ -84,49 +87,39 @@ def simple_motion():
         print(f"S: {s}, U: {u}, V: {v}, A: {a}, T: {t}")
 
 
-calculator_mode = input("""
-    1) Simple Motion            
-    |=================|         
-    |                 |
-    |                 |
-    |    @ -->        |
-    |                 |
-    |                 |
-    |_________________|
+print("""
+        1) Simple Motion                2) Projected from floor             3) Projected Upwards from floor
+        |=================|             |=================|                 |=================|
+        |                 |             |                 |                 |  ^              |
+        |    ________     |             |                 |                 |  |              |
+        |   /        \    |             |    @ -->        |                 |  |              |
+        |  /          \   |             |                 |                 |  |              |
+        | @            \  |             |                 |                 | @               |
+        |_________________|             |_________________|                 |_________________|  
+                 
     
-    2) Projected from floor
-    |=================|
-    |                 |
-    |    ________     |
-    |   /        \    |
-    |  /          \   |
-    | @            \  |
-    |_________________|
-    
-    3) Projected Upwards from floor
-    |=================|         
-    |  ^              |
-    |  |              |
-    |  |              |
-    |  |              |
-    | @               |
-    |_________________|
-    
-    4) Projected from Ledge
-    |=================|         
-    |   ___           |
-    |  /   \          |
-    |_@_    \         |
-    |  |     \        |
-    |  |      \       |
-    |__|______________|
-    
-    5) Dropped from Ledge
-    |=================|         
-    |                 |
-    |                 |
-    |__@____          |
-    |  |    \         |
-    |  |     \        |
-    |__|______\_______|
-""")
+        4) Projected from Ledge         5) Dropped from Ledge               6) Projected Upwards from Point
+        |=================|             |=================|                 |=================|
+        |   ___           |             |                 |                 |  ^              |
+        |  /   \          |             |                 |                 |  |              |
+        |_@_    \         |             |__@____          |                 | @               |
+        |  |     \        |             |  |    \         |                 |  |              |
+        |  |      \       |             |  |     \        |                 |  |              |
+        |__|______________|             |__|______\_______|                 |_________________|""")
+
+while True:
+    calculator_mode = input("Your Selection: ")
+    try:
+        val = int(calculator_mode)
+        if 0 < val < 7:
+            print(f"You have selected Mode {val}: {modes[val]}")
+            break
+        else:
+            print(f"ValueError: Value given '{val}' is not in range calculator_modes - ErrorCode MCRE")
+    except ValueError:
+        print(f"ValueError: Value given '{calculator_mode}' is not an integer - ErrorCode MCIE")
+
+if val == 1:
+    simple_motion()
+
+
